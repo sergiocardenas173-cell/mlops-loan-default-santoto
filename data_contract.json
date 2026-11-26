@@ -1,0 +1,247 @@
+{
+  "contract_name": "loan_default_inference_contract",
+  "version": "1.0.0",
+  "description": "Contrato oficial de datos para el pipeline MLOps de prediccion de incumplimiento crediticio (Loan Default). Define esquema, tipos, nulabilidad, rangos logicos y dominio de clases.",
+  "target_column": "loan_status",
+  "id_column": "id",
+  "features": {
+    "id": {
+      "type": "integer",
+      "required": true,
+      "nullable": false,
+      "minimum": 1,
+      "maximum": 999999999,
+      "description": "Identificador unico del credito (usado para trazabilidad y control de fuga de datos)."
+    },
+    "loan_amount": {
+      "type": "number",
+      "required": true,
+      "nullable": false,
+      "minimum": 500,
+      "maximum": 50000,
+      "description": "Monto solicitado del prestamo en USD."
+    },
+    "funded_amount": {
+      "type": "number",
+      "required": true,
+      "nullable": false,
+      "minimum": 500,
+      "maximum": 50000,
+      "description": "Monto financiado del prestamo en USD."
+    },
+    "term": {
+      "type": "integer",
+      "required": true,
+      "nullable": false,
+      "allowed_values": [
+        36,
+        58,
+        59
+      ],
+      "description": "Plazo del credito en meses."
+    },
+    "grade": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "allowed_values": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G"
+      ],
+      "description": "Calificacion crediticia asignada al prestamo."
+    },
+    "employment_duration": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "allowed_values": [
+        "MORTGAGE",
+        "RENT",
+        "OWN"
+      ],
+      "description": "Tipo de tenencia de vivienda / respaldo patrimonial."
+    },
+    "verification_status": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "allowed_values": [
+        "Not Verified",
+        "Source Verified",
+        "Verified"
+      ],
+      "description": "Estado de verificacion de ingresos del solicitante."
+    },
+    "delinquency_two_years": {
+      "type": "integer",
+      "required": true,
+      "nullable": false,
+      "minimum": 0,
+      "maximum": 20,
+      "description": "Numero de eventos de mora en los ultimos 2 anos."
+    },
+    "inquires_six_months": {
+      "type": "integer",
+      "required": true,
+      "nullable": false,
+      "minimum": 0,
+      "maximum": 15,
+      "description": "Consultas en centrales de riesgo en los ultimos 6 meses."
+    },
+    "open_account": {
+      "type": "integer",
+      "required": true,
+      "nullable": false,
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Cantidad de lineas de credito abiertas."
+    },
+    "public_record": {
+      "type": "integer",
+      "required": true,
+      "nullable": false,
+      "minimum": 0,
+      "maximum": 20,
+      "description": "Numero de registros publicos negativos."
+    },
+    "revolving_balance": {
+      "type": "number",
+      "required": true,
+      "nullable": false,
+      "minimum": 0,
+      "maximum": 500000,
+      "description": "Saldo rotativo total en USD."
+    },
+    "total_accounts": {
+      "type": "integer",
+      "required": true,
+      "nullable": false,
+      "minimum": 1,
+      "maximum": 150,
+      "description": "Numero total de cuentas crediticias historicas."
+    },
+    "initial_list_status": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "allowed_values": [
+        "w",
+        "f"
+      ],
+      "description": "Estado inicial de listado del prestamo."
+    },
+    "collection_12_months_medical": {
+      "type": "integer",
+      "required": true,
+      "nullable": false,
+      "allowed_values": [
+        0,
+        1
+      ],
+      "description": "Indicador de cobros medicos en los ultimos 12 meses."
+    },
+    "application_type": {
+      "type": "string",
+      "required": true,
+      "nullable": false,
+      "allowed_values": [
+        "INDIVIDUAL",
+        "JOINT"
+      ],
+      "description": "Tipo de solicitud crediticia."
+    },
+    "last_week_pay": {
+      "type": "integer",
+      "required": true,
+      "nullable": false,
+      "minimum": 0,
+      "maximum": 250,
+      "description": "Semanas transcurridas de pago."
+    },
+    "total_collection_amount": {
+      "type": "number",
+      "required": true,
+      "nullable": false,
+      "minimum": 0,
+      "maximum": 100000,
+      "description": "Monto total en cobranza."
+    },
+    "total_current_balance": {
+      "type": "number",
+      "required": true,
+      "nullable": false,
+      "minimum": 0,
+      "maximum": 2000000,
+      "description": "Saldo actual consolidado de todas las cuentas."
+    },
+    "total_revolving_credit_limit": {
+      "type": "number",
+      "required": true,
+      "nullable": false,
+      "minimum": 0,
+      "maximum": 500000,
+      "description": "Cupo rotativo total disponible."
+    },
+    "loan_status": {
+      "type": "integer",
+      "required": true,
+      "nullable": false,
+      "allowed_values": [
+        0,
+        1
+      ],
+      "description": "Variable objetivo: 0 = Cumplido, 1 = Incumplimiento (Default)."
+    }
+  },
+  "examples": {
+    "valid_input": {
+      "id": 65087372,
+      "loan_amount": 10000,
+      "funded_amount": 10000,
+      "term": 36,
+      "grade": "B",
+      "employment_duration": "MORTGAGE",
+      "verification_status": "Verified",
+      "delinquency_two_years": 0,
+      "inquires_six_months": 1,
+      "open_account": 12,
+      "public_record": 0,
+      "revolving_balance": 14500,
+      "total_accounts": 22,
+      "initial_list_status": "w",
+      "collection_12_months_medical": 0,
+      "application_type": "INDIVIDUAL",
+      "last_week_pay": 48,
+      "total_collection_amount": 0,
+      "total_current_balance": 185000,
+      "total_revolving_credit_limit": 35000
+    },
+    "invalid_input": {
+      "id": 65087372,
+      "loan_amount": "diez_mil",
+      "funded_amount": -5000,
+      "term": 72,
+      "grade": "Z",
+      "employment_duration": null,
+      "verification_status": "Verified",
+      "delinquency_two_years": -2,
+      "inquires_six_months": 1,
+      "open_account": 12,
+      "public_record": 0,
+      "revolving_balance": 14500,
+      "total_accounts": 22,
+      "initial_list_status": "x",
+      "collection_12_months_medical": 0,
+      "application_type": "INDIVIDUAL",
+      "last_week_pay": 48,
+      "total_collection_amount": 0,
+      "total_current_balance": 185000,
+      "total_revolving_credit_limit": 35000
+    }
+  }
+}
